@@ -33,6 +33,27 @@ it('commands to find elements', function () {
         .closest('table')
         .should('have.class', 'table');
 
-    cy.get('.pagination.traversal-pagination').find('a').contains('4');
+    cy.get('.pagination.traversal-pagination')
+        .find('a')
+        .contains('4');
 
+    cy.get('.traversal-ul')
+        .contains('apples')
+        .next()
+        .should('contain', 'oranges')
+        .next()
+        .should('contain', 'bananas');
+
+    cy.get('.traversal-next-all')
+        .contains('apples')
+        .nextAll()
+        .should('have.length', '4');
+
+    cy.get('.traversal-disabled button[type="button"]')
+        .not('[disabled="disabled"]')
+        .should('be.enabled');
+
+    cy.get('.nav.nav-pills.traversal-pills li.active')
+        .siblings()
+        .should('have.length', 2);
 });
